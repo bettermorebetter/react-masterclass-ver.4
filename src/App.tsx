@@ -1,8 +1,5 @@
-import { ThemeProvider, createGlobalStyle } from "styled-components";
-import Router from "./Router";
-import { ReactQueryDevtools } from "react-query/devtools";
-import { atom, useRecoilValue, useSetRecoilState } from "recoil";
-import { lightTheme, darkTheme } from "./theme";
+import { createGlobalStyle } from "styled-components";
+import ToDoList from "./ToDoList";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400&display=swap');
@@ -70,26 +67,11 @@ color: inherit;
 }
 `;
 
-export const isDarkAtom = atom({
-  //state 이름(고유)
-  key: "isDark",
-  // 기본값
-  default: false,
-});
-
 function App() {
-  const isDark = useRecoilValue(isDarkAtom);
-  const setDarkAtom = useSetRecoilState(isDarkAtom);
-  const toggleDark = () => setDarkAtom((prev) => !prev);
-
   return (
     <>
-      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-        <button onClick={toggleDark}>toggle Mode</button>
-        <GlobalStyle />
-        <Router />
-        <ReactQueryDevtools initialIsOpen={true} />
-      </ThemeProvider>
+      <GlobalStyle />
+      <ToDoList />
     </>
   );
 }
